@@ -1,4 +1,4 @@
-public class MyHash<K, V> {
+public class MyHash<K extends Comparable<K>, V> {
     private static class MyNode<K, V> {
         K key;
         V value;
@@ -45,16 +45,16 @@ public class MyHash<K, V> {
         }
 
     public K getKey(V value){
-        K keyArray = new MyNode<K,V>(value);
-        for(int i = 0; i < bucketArray.size(); i++){
-            MyNode<K,V> bucket = bucketArray.get(i);
-            if(bucket != null){
-                for (int j = 0; j < bucketArray.size(); j++){
-                    keyArray.put(0, bucketArray.get(j).key);
+        for (int i = 0; i < capacity; i++) {
+            MyNode<K, V> buck = bucketArray.get(i);
+            while (buck != null) {
+                if ((buck.value).equals(value)) {
+                    return buck.key;
                 }
+                buck = buck.next;
             }
         }
-        return keyArray;
+        return null;
     }
     public boolean contains(K key){
         if (bucketArray == null){

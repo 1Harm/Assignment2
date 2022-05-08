@@ -15,12 +15,10 @@ public class MyBST<K extends Comparable<K>,V> implements Iterable<K> {
     }
 
     private Node root;
-
     public void put(K key, V value) {
         Node newNode = new Node(key, value);
         root = put(root, newNode);
     }
-
     private Node put(Node current, Node node) {
         if (current == null) {
             return node;
@@ -36,11 +34,9 @@ public class MyBST<K extends Comparable<K>,V> implements Iterable<K> {
         current.length = size(current.left) + size(current.right) + 1;
         return current;
     }
-
     public void delete(K node) {
         root = delete(root, node);
     }
-
     private Node delete(Node current, K key) {
         if (current == null) {
             return null;
@@ -58,6 +54,7 @@ public class MyBST<K extends Comparable<K>,V> implements Iterable<K> {
             current.key = minNode(root.right);
             current.right = delete(current.right, current.key);
         }
+        current.length = size(current.left) + size(current.right) - 1;
         return current;
     }
 
@@ -70,12 +67,12 @@ public class MyBST<K extends Comparable<K>,V> implements Iterable<K> {
     }
 
     private K minNode(Node current) {
-        K min = current.key;
+        K minimum = current.key;
         while (current.left != null) {
             current = current.left;
-            min = (current.left).key;
+            minimum = (current.left).key;
         }
-        return min;
+        return minimum;
     }
 
     @Override

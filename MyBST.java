@@ -34,6 +34,17 @@ public class MyBST<K extends Comparable<K>,V> implements Iterable<K> {
         current.length = size(current.left) + size(current.right) + 1;
         return current;
     }
+    public V get(K key){
+        return get(root, key);
+    }
+    private V get(Node current, K key)  {
+        int cmp = key.compareTo(current.key);
+        if (current==null || current.key==key)
+            return null;
+        if (cmp > 0)
+            return get(root.left, key);
+        return get(root.right, key);
+    }
     public void delete(K node) {
         root = delete(root, node);
     }
